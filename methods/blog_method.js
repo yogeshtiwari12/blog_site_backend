@@ -158,3 +158,5 @@ export const getsomedata = async (req, res) => {
     res.status(500).json({ message: "Error retrieving blog data", error: error.message });
   }
 };
+
+

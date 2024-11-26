@@ -12,4 +12,5 @@ route.get('/getmyblogs', verifytoken, isadmin("admin"), getmyblogs)
 route.get('/getsomedata/:id',verifytoken, getsomedata)
 route.put('/update/:id', verifytoken, isadmin("admin"), update)
 
+
 export default route;

@@ -7,9 +7,7 @@ const jwtkey = "yogesh123";
 
 
 
-export const signup = async (req, res) => {
-
-  
+export const signup = async (req, res) => {  
   const { photo } = req.files;
   if (!req.files || !req.files.photo) {
     return res.status(400).json({ message: "No photo found" });
@@ -28,6 +26,12 @@ export const signup = async (req, res) => {
   try {
     if (!name || !email || !phone || !password || !education || !role) {
       return res.status(400).json({ message: "All fields are required" });
+    }
+    if(phone.toString().length!==10){
+      return res.status(400).json({ message: "Invalid phone number" });
+    }
+    if(password.length<8){
+      return res.status(400).json({ message: "Password should be at least 8 characters long" });
     }
 
     const user = await User.findOne({ email });
@@ -68,7 +72,9 @@ export const login = async(req, res) => {
     if (!email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
-  
+    if(password.length<8){
+      return res.status(400).json({ message: "Password should be at least 8 characters long" });
+    }
     const user = await User.findOne({email,role});
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
@@ -136,3 +142,12 @@ export const getalladmins = async (req, res) => {
     
   }
 }
+
+export const getalladminanduser = async(req, res) => {
+  try {
+    const data = await User.find({$or:[{ role:"admin"} , {role:"user"}]})
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving data", error: error.message });
+  }
+} 

@@ -8,8 +8,7 @@ import cloudinary from 'cloudinary';
 import cors from 'cors';
 
 const app = express();
-
-mongoose.connect("mongodb://localhost:27017/blog", {
+mongoose.connect("mongodb+srv://yt781703:yhYjCCxkA3siZEoY@cluster3.w0v4d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster3", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
