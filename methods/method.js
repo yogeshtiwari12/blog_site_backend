@@ -95,7 +95,14 @@ export const login = async(req, res) => {
         return res.json({message:"token Error", error: err.message});
       }
   
-      res.cookie('token',token)
+           res.cookie('token', token, {
+                //localhost ka code
+                secure: true, // Set to true since Render uses HTTPS
+                sameSite: 'None', // Allows cross-site cookies with HTTPS
+                httpOnly: true,
+                secure: true, // Render uses HTTPS
+                sameSite: 'None',
+            });
       
       res.json({
         message: "Logged in successfully",
@@ -114,7 +121,12 @@ export const logout = (req, res) => {
   if (!token) {
     return res.status(400).json({ message: "No token found" });
   }
-  res.clearCookie('token');
+  res.clearCookie('token',{
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None',
+        path: '/'
+  });
   return res.status(200).json({ message: "Logout successful" });
 };
 
