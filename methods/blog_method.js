@@ -1,8 +1,7 @@
 import cloudinary from 'cloudinary';
 import Blog from '../model/blogmodel.js';
 import mongoose from 'mongoose';
-import User from '../model/model.js';
-import Hotel from '../../hotel_room_backend/model/hotelmodel.js';
+
 
 export const createblog = async (req, res) => {
   const { blogimage } = req.files;
