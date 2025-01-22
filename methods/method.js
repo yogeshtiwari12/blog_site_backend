@@ -67,7 +67,7 @@ export const signup = async (req, res) => {
 
 
 export const login = async(req, res) => {
-  const { email, password, role } = req.body;
+  const { email, password } = req.body;
   try {
     if (!email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -75,7 +75,7 @@ export const login = async(req, res) => {
     if(password.length<8){
       return res.status(400).json({ message: "Password should be at least 8 characters long" });
     }
-    const user = await User.findOne({email,role});
+    const user = await User.findOne({email});
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
      
@@ -86,7 +86,7 @@ export const login = async(req, res) => {
       return res.status(400).json({ message: "password does not match" });
     }
   
-    if (user.role !== role) {
+    if (user.role !== "admin" && user.role !== "user") {
       return res.status(200).json({ message:`User with role ${role} is not found` });
     }
   
@@ -95,14 +95,13 @@ export const login = async(req, res) => {
         return res.json({message:"token Error", error: err.message});
       }
   
-           res.cookie('token', token, {
-                //localhost ka code
+      res.cookie('token',token,{
                 secure: true, // Set to true since Render uses HTTPS
                 sameSite: 'None', // Allows cross-site cookies with HTTPS
                 httpOnly: true,
                 secure: true, // Render uses HTTPS
                 sameSite: 'None',
-            });
+      })
       
       res.json({
         message: "Logged in successfully",
