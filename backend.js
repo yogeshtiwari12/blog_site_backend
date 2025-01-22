@@ -21,7 +21,7 @@ mongoose.connect("mongodb+srv://yt781703:yhYjCCxkA3siZEoY@cluster3.w0v4d.mongodb
 app.use(cookieParser());
 
 app.use(cors({
-  origin: 'https://blog-site-frontend-bay.vercel.app',
+  origin: 'https://blog-site-frontend-bay.vercel.app/',
   credentials: true
 }));
 
