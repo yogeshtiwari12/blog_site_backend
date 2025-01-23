@@ -7,7 +7,7 @@ route.post('/createblog', verifytoken, isadmin("admin"), createblog)
 route.delete('/delete/:id', verifytoken, isadmin("admin"), delete1)
 
 route.get('/getallblogs', getallblogs)
-route.get('/getsingleblog/:id', singleblog)
+route.get('/getsingleblog/:id',verifytoken, singleblog)
 route.get('/getmyblogs', verifytoken, isadmin("admin"), getmyblogs)
 route.get('/getsomedata/:id',verifytoken, getsomedata)
 route.put('/update/:id', verifytoken, isadmin("admin"), update)
